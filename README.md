@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="Kairós — affective control, guardrails, research" width="720">
+</p>
+
 # Kairós
 
 **Kairós** é uma camada de controle afetivo auditável para agentes: estado interno,
