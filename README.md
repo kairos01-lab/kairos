@@ -12,6 +12,18 @@ históricos preservam esse nome; o framework público chama-se **Kairós**.
 
 ---
 
+## Autoria e processo
+
+Este projeto foi concebido e dirigido por **uma pessoa** — o criador, que se
+define como **nexialista** — em **simbiose com uma bancada de LLMs**. A pessoa
+define as perguntas, a direção, as decisões e a responsabilidade; a bancada de
+LLMs ajuda a implementar, revisar, auditar e documentar. Não foi feito sozinho.
+Também não foi feito “pela IA”. Foi um processo humano-máquina.
+
+Leia `docs/AUTORIA.md`. O manifesto (opinião) está em `docs/MANIFESTO.md`.
+
+---
+
 ## O que tem aqui
 
 | Camada | O que faz |
@@ -24,6 +36,21 @@ históricos preservam esse nome; o framework público chama-se **Kairós**.
 | Guarda-Costas | Ponte Python → Rust para hard block, kernel check e break glass. |
 | Dashboard | Painel matplotlib e servidor FastAPI/WebSocket (opcional). |
 | SV-01 | Protocolo de pesquisa com manifesto, hashes e instrumentação. |
+| TCI | Tentativa de operacionalizar Φ_MIP × Σ; auditoria negativa em `research/tci/`. |
+
+## Resultados que merecem atenção
+
+- **Auditoria V19 (TCI): negativa metodológica.** O teste foi reprovado por
+  erro de constructo/desenho. O valor é mostrar por que um teste aparentemente
+  rigoroso não testava a teoria — e evitar um falso positivo.
+- **E3-R B vs D: associação descritiva (C).** Recomendação 23/30 vs 29/30;
+  referência 12/30 vs 0/30. Post hoc, uma coleta, estresse/política
+  confundidos; não é evidência causal.
+- **Paridade do tokenizer: 8/8.** Strings, hashes e `input_ids` idênticos;
+  validação de engenharia, não resultado comportamental.
+- **SV-01: não executado.** Protocolo e instrumentação prontos; piloto bloqueado.
+
+Leia `docs/RESULTS.md` para os níveis de evidência e as ressalvas.
 
 ## Demo em 2 minutos (sem GPU e sem modelo)
 
@@ -82,6 +109,23 @@ O ambiente de paridade usa `transformers 5.22.1`, `tokenizers 0.23.1` e o
 tokenizer Qwen3-8B na revisão
 `b968826d9c46dd6066d109eabc6255188de91218`. Os arquivos do tokenizer e os pesos
 do modelo **não** estão neste repositório; veja `docs/RESEARCH_SV01.md`.
+
+## Pesquisa TCI
+
+O projeto tentou operacionalizar a TCI (Φ_MIP × Σ) no V19. A auditoria interna
+**reprovou** o teste: Φ foi medido como TE, a independência da Fase B era
+tautológica e o desfecho não media resiliência. Não há resultado positivo da
+TCI. O material histórico e a auditoria estão em `research/tci/`; o resumo
+está em `docs/TCI.md`.
+
+Isso é uma **negativa metodológica**, não uma validação. Se você quer retomar a
+TCI, comece por Φ_MIP, mesmo sistema causal e um desfecho de resiliência sob
+perturbação.
+
+## Manifesto
+
+`docs/MANIFESTO.md` — uma opinião sobre fragmentação de pesquisa, nexialismo e
+simbiose homem-máquina. Não é resultado científico.
 
 ## Licença
 

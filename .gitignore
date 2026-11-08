@@ -29,6 +29,7 @@ models/
 *.log
 *.jsonl
 *.sqlite3
+research/tci/reproducao/
 
 # IDE / sistema
 .vscode/
