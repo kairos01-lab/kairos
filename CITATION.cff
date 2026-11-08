@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Se você usar este software em pesquisa, cite o projeto Kairós."
+title: "Kairós"
+abstract: "Camada de controle afetivo auditável para agentes: estado interno, estresse, política, memória e guardrails."
+version: 0.1.0
+date-released: 2026-11-08
+license: AGPL-3.0
+repository-code: "https://github.com/SEU_USUARIO/kairos"
+authors:
+  - name: "Kairós contributors"
+keywords:
+  - affective computing
+  - agents
+  - guardrails
+  - policy engine
+  - reproducibility

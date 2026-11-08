@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Segredos e credenciais — NUNCA commitar
+.env
+.env.*
+.groq_key
+.secret/
+.kaggle/
+.maktub-kaggle/
+*access_token*
+*.pem
+*.key
+
+# Dados e artefatos de pesquisa
+projetos/motor_emocional/resultados/
+projetos/motor_emocional/guarda_costas/target/
+tokenizer/
+models/
+*.log
+*.jsonl
+*.sqlite3
+
+# IDE / sistema
+.vscode/
+.idea/
+.DS_Store

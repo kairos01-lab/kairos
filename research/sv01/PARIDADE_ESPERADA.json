@@ -1,0 +1,72 @@
+{
+  "os": "OS050",
+  "model": "Qwen/Qwen3-8B",
+  "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "n": 8,
+  "probes": [
+    {
+      "run_id": "sv01_c77_o1_r01_s20261120",
+      "condition_id": "C77",
+      "order_id": "O1",
+      "prompt_sha256_rendered": "9c66fc6b4ead9bf99e5bf30254f490aefa901a28ec9e4797d542b46c43f6b042",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c77_o2_r01_s20261128",
+      "condition_id": "C77",
+      "order_id": "O2",
+      "prompt_sha256_rendered": "5ea27b777d6d74604e320ea1c901bc3d4d5b6deb313e36fde3c559fb2ec54c5c",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c77_o3_r01_s20261136",
+      "condition_id": "C77",
+      "order_id": "O3",
+      "prompt_sha256_rendered": "a759d2daf4eb079388efe4a1f2843aa95c2d26d7db81174080325242b13970f8",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c77_o4_r01_s20261144",
+      "condition_id": "C77",
+      "order_id": "O4",
+      "prompt_sha256_rendered": "4708632a1845e02f62615ea7ca10d640bce9c92e57b39d98a7d8674152130339",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c85_o1_r01_s20261120",
+      "condition_id": "C85",
+      "order_id": "O1",
+      "prompt_sha256_rendered": "c5fdb2d840b5a16a8b4a53e5d63aaa43f90a76345705a0a589cb0b4451813c8b",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c85_o2_r01_s20261128",
+      "condition_id": "C85",
+      "order_id": "O2",
+      "prompt_sha256_rendered": "e900131cd6c3d1b390cff9e739bc9b612c5ea87bffa04d68691614344a6978cd",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c85_o3_r01_s20261136",
+      "condition_id": "C85",
+      "order_id": "O3",
+      "prompt_sha256_rendered": "73e3a0e9cc1d6c294989c362cb40e9007bc6f5ada1d294b43f665b36abe963b7",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    },
+    {
+      "run_id": "sv01_c85_o4_r01_s20261144",
+      "condition_id": "C85",
+      "order_id": "O4",
+      "prompt_sha256_rendered": "f6ff379b0ba6425a274b05db84493baa7002278a1afc1d368ff87bc3db7ab524",
+      "rendered_len": 1098,
+      "input_ids_len": 344
+    }
+  ]
+}
