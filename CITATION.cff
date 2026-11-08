@@ -5,7 +5,7 @@ abstract: "Camada de controle afetivo auditável para agentes: estado interno, e
 version: 0.1.0
 date-released: 2026-11-08
 license: AGPL-3.0
-repository-code: "https://github.com/SEU_USUARIO/kairos"
+repository-code: "https://github.com/kairos01-lab/kairos"
 authors:
   - name: "Kairós contributors"
 keywords:
