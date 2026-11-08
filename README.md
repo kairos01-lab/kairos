@@ -7,7 +7,7 @@ controle — não é consciência, não é AGI e não é “emoção real”.
 O projeto nasceu com o codinome de pesquisa **Maktub**. O código e os protocolos
 históricos preservam esse nome; o framework público chama-se **Kairós**.
 
-**Status:** alpha de pesquisa. Não é pronto para produção.
+**Status:** alpha de pesquisa. Não é pronto para produção. Veja `docs/STATUS.md`.
 **Licença:** GNU AGPL v3.0 (`LICENSE`).
 
 ---
