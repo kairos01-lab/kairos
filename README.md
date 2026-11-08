@@ -13,6 +13,7 @@ históricos preservam esse nome; o framework público chama-se **Kairós**.
 
 **Status:** alpha de pesquisa. Não é pronto para produção. Veja `docs/STATUS.md`.
 **Licença:** GNU AGPL v3.0 (`LICENSE`).
+**Diário:** o registro datado do que foi feito e verificado está em `docs/DIARIO.md`.
 
 ---
 
