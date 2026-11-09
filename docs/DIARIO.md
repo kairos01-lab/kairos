@@ -43,6 +43,8 @@ erros e correções.
 - Paridade do tokenizer verificada apenas localmente; ainda não no Kaggle.
 - Sem identidade visual definitiva (logo e banner são provisórios).
 - Sem revisão externa ainda.
+- **Pendente:** levar a ponte Maktub ↔ TCI para `docs/TCI.md` — a pergunta do
+  vetor mínimo e do sistema topológico irredutível.
 
 ### Correções
 

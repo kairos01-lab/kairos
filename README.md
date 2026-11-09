@@ -27,6 +27,33 @@ Também não foi feito “pela IA”. Foi um processo humano-máquina.
 
 Leia `docs/AUTORIA.md`. O manifesto (opinião) está em `docs/MANIFESTO.md`.
 
+### O currículo que ninguém pediu
+
+O criador deste projeto não tem especialização em nada. Não é formado. Não
+estudou em escola privada. Não terminou o ensino médio, porque não se encaixava
+em nenhuma caixinha.
+
+| Item | Status |
+|---|---|
+| Especialização | Nenhuma. |
+| Diploma | Ensino médio incompleto. |
+| Escola | Pública. |
+| Caixinha | Nenhuma. |
+| Método | Nexialismo com uma bancada de LLMs. |
+| Currículo | Este repositório. |
+
+Um bilionário disse que prefere um preguiçoso genial a um especialista
+esforçado. A frase é atribuída a Bill Gates; não sei se é verdade, mas o caso
+aqui parece. O criador é preguiçoso o suficiente para não querer fazer do jeito
+difícil, e teimoso o suficiente para não aceitar que não dava.
+
+E sim: este README também foi escrito com um LLM, sob direção humana. A
+diferença é que aqui o LLM não assina, não responde legalmente e não leva a
+culpa.
+
+> Isso não é apologia à ignorância. É um aviso: currículo não é o mesmo que
+> capacidade, e caixinha não é o mesmo que competência.
+
 ---
 
 ## O que tem aqui
