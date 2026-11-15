@@ -85,7 +85,7 @@ reescrever resultados.
 
 ## Licença e uso
 
-O protocolo e a instrumentação são AGPL-3.0. Se você usar o SV-01 em pesquisa,
+O protocolo e a instrumentação são `AGPL-3.0-only`. Se você usar o SV-01 em pesquisa,
 cite o projeto e preserve o manifesto, os hashes e as versões. Não apresente o
 piloto como validado antes de uma execução autorizada e de uma análise
 independente.

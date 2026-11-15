@@ -12,18 +12,19 @@ O projeto nasceu com o codinome de pesquisa **Maktub**. O código e os protocolo
 históricos preservam esse nome; o framework público chama-se **Kairós**.
 
 **Status:** alpha de pesquisa. Não é pronto para produção. Veja `docs/STATUS.md`.
-**Licença:** GNU AGPL v3.0 (`LICENSE`).
+**Licença:** GNU Affero General Public License, versão 3, SPDX `AGPL-3.0-only`
+(`LICENSE`).
 **Diário:** o registro datado do que foi feito e verificado está em `docs/DIARIO.md`.
 
 ---
 
 ## Autoria e processo
 
-Este projeto foi concebido e dirigido por **uma pessoa** — o criador, que se
-define como **nexialista** — em **simbiose com uma bancada de LLMs**. A pessoa
-define as perguntas, a direção, as decisões e a responsabilidade; a bancada de
-LLMs ajuda a implementar, revisar, auditar e documentar. Não foi feito sozinho.
-Também não foi feito “pela IA”. Foi um processo humano-máquina.
+Este projeto foi concebido e dirigido por **Diego Melo Rodrigues Ferraz**
+(**nexialista**) em **simbiose com uma bancada de LLMs**. A pessoa define as
+perguntas, a direção, as decisões e a responsabilidade; a bancada de LLMs ajuda
+a implementar, revisar, auditar e documentar. Não foi feito sozinho. Também não
+foi feito “pela IA”. Foi um processo humano-máquina.
 
 Leia `docs/AUTORIA.md`. O manifesto (opinião) está em `docs/MANIFESTO.md`.
 
@@ -161,16 +162,32 @@ simbiose homem-máquina. Não é resultado científico.
 
 ## Licença
 
-O código original está sob **AGPL-3.0**. Em resumo: se você modificar e
-disponibilizar o software como serviço de rede, precisa oferecer o código-fonte
-correspondente aos usuários. Para uso comercial em produto fechado, é possível
-negociar uma **licença comercial separada** com o autor.
+O código original está sob **GNU Affero General Public License, versão 3,
+SPDX `AGPL-3.0-only`** (`LICENSE`, texto oficial). Em resumo: se você modificar
+e disponibilizar o software como serviço de rede, precisa oferecer o
+código-fonte correspondente aos usuários. Uso comercial é permitido sob a
+AGPL-3.0-only, desde que a licença seja cumprida.
+
+Para uso comercial em produto fechado, é possível negociar uma **licença
+comercial separada** com o autor.
+
+Copyright (C) 2026 Diego Melo Rodrigues Ferraz. Veja `AUTHORS.md` e `NOTICE`.
 
 Arquivos de terceiros (dependências Python, crates Rust, tokenizer/modelo Qwen)
 mantêm suas próprias licenças. Veja `THIRD_PARTY_LICENSES.md`.
 
-A marca **Kairós** não é licenciada pelo AGPL; o nome e a identidade visual são
-reservados.
+A licença do software não substitui nem absorve automaticamente as licenças de
+terceiros ou dos assets.
+
+Os quatro arquivos visuais `assets/banner.png`, `assets/logo.png`,
+`assets/banner.svg` e `assets/logo.svg` são licenciados sob **CC BY 4.0**,
+conforme `ASSETS_LICENSE.md`. Essa licença não concede, por si só, direitos
+sobre o nome Kairós, marca ou outros elementos de identidade não incluídos
+expressamente.
+
+A marca **Kairós** e os demais elementos de identidade não incluídos nos quatro
+arquivos acima não são licenciados pela AGPL nem pela CC BY. Uso do nome como
+marca ou endosso deve ser tratado com o responsável pelo projeto.
 
 ## Segurança
 

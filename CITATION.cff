@@ -4,10 +4,11 @@ title: "Kairós"
 abstract: "Camada de controle afetivo auditável para agentes: estado interno, estresse, política, memória e guardrails."
 version: 0.1.0
 date-released: 2026-11-08
-license: AGPL-3.0
+license: AGPL-3.0-only
 repository-code: "https://github.com/kairos01-lab/kairos"
 authors:
-  - name: "Kairós contributors"
+  - family-names: "Melo Rodrigues Ferraz"
+    given-names: "Diego"
 keywords:
   - affective computing
   - agents

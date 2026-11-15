@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Kairós — logo</title>
+<desc id="desc">Logo original do Kairós: insígnia circular com K geométrico e ponto teal. Sem imagens, fontes ou recursos de terceiros.</desc>
+<metadata>Copyright (C) 2026 Diego Melo Rodrigues Ferraz. CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/. Python 3 + Pillow 11.1.0; paths geométricos originais; sem fontes externas.</metadata>
+<circle cx="256.00" cy="256.00" r="236.00" fill="#0e1729"/>
+<circle cx="256.00" cy="256.00" r="224.20" fill="none" stroke="#e3b341" stroke-width="6.61"/>
+<circle cx="256.00" cy="256.00" r="207.68" fill="none" stroke="#35b7a6" stroke-width="1.89" opacity="0.3529"/>
+<polyline points="184.02,148.03 184.02,363.97" fill="none" stroke="#f5f1e8" stroke-width="24.07" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="184.02,256.00 327.98,148.03" fill="none" stroke="#f5f1e8" stroke-width="24.07" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="184.02,256.00 327.98,363.97" fill="none" stroke="#f5f1e8" stroke-width="24.07" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="256.00" cy="256.00" r="25.96" fill="#35b7a6"/>
+</svg>

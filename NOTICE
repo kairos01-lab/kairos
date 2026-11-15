@@ -1,0 +1,25 @@
+Kairós — camada de controle afetivo auditável
+Copyright (C) 2026 Diego Melo Rodrigues Ferraz
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, version 3.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+SPDX-License-Identifier: AGPL-3.0-only
+
+Third-party components retain their own copyright and license notices.
+See THIRD_PARTY_LICENSES.md.
+
+The four visual asset files assets/banner.png, assets/logo.png,
+assets/banner.svg and assets/logo.svg are licensed separately under CC BY 4.0;
+see ASSETS_LICENSE.md. Other visual identity elements, the Kairós name, and any
+trademark rights are not licensed by the AGPL or by CC BY 4.0. Consult the
+project maintainer before using the name as a trademark or implying endorsement.

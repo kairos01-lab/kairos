@@ -1,11 +1,27 @@
-# COMECE AQUI (versão simples)
+# COMECE AQUI
 
-Este diretório é a vitrine pública do **Kairós**. Ele já está montado e testado
-localmente. Nada foi publicado na internet.
+Este repositório **já é público** em
+<https://github.com/kairos01-lab/kairos>. Não é preciso criar um repositório
+novo para ler, executar ou estudar o projeto.
 
-## O que você precisa fazer para ver funcionando
+## 1. Obter o código
 
-Abra o terminal nesta pasta e rode, uma linha por vez:
+Opção A — clonar com Git:
+
+```bash
+git clone https://github.com/kairos01-lab/kairos.git
+cd kairos
+```
+
+Opção B — baixar um snapshot:
+
+No GitHub, use o botão **Code → Download ZIP**. O snapshot contém os arquivos
+rastreados do commit selecionado; não contém arquivos ignorados ou não
+rastreados.
+
+## 2. Rodar o demo
+
+O demo não usa modelo, GPU, rede ou API.
 
 ```bash
 python3 -m venv .venv
@@ -15,56 +31,56 @@ python examples/demo_fake_cortex.py
 ```
 
 Se aparecer um JSON com `resposta`, `estado_emocional`, `estresse`,
-`policy_level` e `prompt`, funcionou. O demo não usa modelo, GPU, rede ou API.
+`policy_level` e `prompt`, funcionou.
 
-Para rodar os testes:
+## 3. Rodar os testes
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-## O que é cada coisa (sem technês)
+O teste básico público é `tests/test_basic.py`. O working tree local pode ter
+uma suíte maior, ainda não publicada.
 
-- **README.md**: o cartão de visita do projeto.
-- **LICENSE**: as regras de uso. Você escolheu AGPLv3.
-- **examples/demo_fake_cortex.py**: um exemplo que roda na hora, com um “córtex
-  falso”, só para mostrar o fluxo.
-- **tests/**: testes automáticos para garantir que o básico não quebrou.
-- **docs/**: explicações maiores.
-- **projetos/motor_emocional/core/**: o motor emocional em si.
-- **projetos/motor_emocional/guarda_costas/**: a parte de segurança escrita em Rust.
+## 4. O que é cada coisa
 
-## O que NÃO fazer agora
+- **README.md** — cartão de visita e visão geral.
+- **LICENSE** — licença do software: `AGPL-3.0-only`.
+- **ASSETS_LICENSE.md** — licença dos assets visuais: CC BY 4.0, separada da
+  licença do software.
+- **AUTHORS.md** e **NOTICE** — autoria, copyright e avisos.
+- **CONTRIBUTING.md** — contribuição, DCO e declaração de origem.
+- **THIRD_PARTY_LICENSES.md** — avisos de dependências e componentes externos.
+- **examples/demo_fake_cortex.py** — demo com córtex e guarda falsos.
+- **tests/** — testes automatizados.
+- **docs/** — documentação, pesquisa e histórico.
+- **projetos/motor_emocional/core/** — núcleo do motor emocional.
+- **projetos/motor_emocional/guarda_costas/** — Guarda-Costas em Rust.
 
-- Não publique esta pasta ainda.
-- Não copie `.groq_key`, `.secret/`, `.kaggle/`, `.maktub-kaggle/`, resultados,
-  backups, modelos ou logs para dentro dela.
-- Não rode o piloto SV-01 nem os 64 runs.
-- Não use em produção.
+## 5. Estado público versus working tree
 
-## Quando você quiser publicar no GitHub
+- O GitHub exibe o commit mais recente da branch pública.
+- O working tree de desenvolvimento pode conter alterações posteriores ao
+  commit publicado.
+- Se um documento local mencionar algo que não aparece no GitHub, ele pode
+  descrever o estado local, não o estado público.
+- Consulte `docs/STATUS.md` para a situação resumida.
 
-Só depois de revisar. O fluxo é:
+## 6. O que não fazer
 
-1. criar uma conta no GitHub (grátis);
-2. criar um repositório vazio chamado `kairos` (sem README, sem licença);
-3. no terminal, dentro desta pasta:
+- Não copie `.groq_key`, `.secret/`, `.kaggle/`, `.maktub-kaggle/`, logs,
+  backups ou modelos para dentro do repositório.
+- Não rode o piloto SV-01 nem os 64 runs; ele está bloqueado.
+- Não use o Guarda-Costas com processos reais sem revisão e sandbox.
+- Não presuma que todo o working tree já está público.
 
-```bash
-git init
-git add .
-git commit -m "Kairós alpha"
-git branch -M main
-git remote add origin https://github.com/SEU_USUARIO/kairos.git
-git push -u origin main
-```
+## 7. Se você quiser contribuir
 
-Eu não tenho acesso à sua conta e não vou pedir sua senha. Se você quiser, eu
-te acompanho passo a passo na hora de rodar esses comandos.
+1. Leia `CONTRIBUTING.md`.
+2. Faça um fork ou clone do repositório existente; **não** rode `git init` para
+   recriar o projeto.
+3. Crie uma branch para sua mudança.
+4. Rode os testes relevantes.
+5. Abra um PR com escopo pequeno e `Signed-off-by`.
 
-## Próximo passo recomendado
-
-1. Rodar o demo e os testes.
-2. Ler o `README.md`.
-3. Me dizer o que você quer ajustar no texto, no nome ou no escopo.
-4. Só então pensar em publicar e convidar pessoas.
+O projeto é um alpha de pesquisa. Não é pronto para produção.

@@ -6,19 +6,19 @@
 > bancada de LLMs implementou, revisou e auditou comigo. Eu me vejo como um
 > nexialista.”
 >
-> — o criador
+> — Diego Melo Rodrigues Ferraz (nexialista)
 
 **Este projeto não foi feito sozinho. Também não foi feito “pela IA”.**
 
-Ele foi concebido e dirigido por **uma pessoa** — o criador — em **simbiose com
-uma bancada de LLMs**. A pessoa define as perguntas, a direção, os critérios, as
-decisões e a responsabilidade. A bancada de LLMs ajuda a implementar, revisar,
-testar, auditar e documentar. O resultado é um processo humano-máquina, não uma
-obra solo nem uma geração automática.
+Ele foi concebido e dirigido por **Diego Melo Rodrigues Ferraz**
+(**nexialista**) em **simbiose com uma bancada de LLMs**. A pessoa define as
+perguntas, a direção, os critérios, as decisões e a responsabilidade. A bancada
+de LLMs ajuda a implementar, revisar, testar, auditar e documentar. O resultado
+é um processo humano-máquina, não uma obra solo nem uma geração automática.
 
-## O criador como nexialista
+## Diego Melo Rodrigues Ferraz como nexialista
 
-O criador deste projeto se define como um **nexialista**.
+Diego Melo Rodrigues Ferraz se define como um **nexialista**.
 
 “Nexialismo” é uma referência cultural a A. E. van Vogt: a ideia de alguém que
 integra disciplinas diferentes para resolver problemas que especialistas de uma
@@ -54,16 +54,18 @@ Neste projeto, isso significa juntar:
 
 ## Autoria legal
 
-A **autoria legal e a responsabilidade** são do criador humano. A bancada de
-LLMs é parte do método e da colaboração técnica; não é autora legal, não assina
-licença e não responde pelo projeto.
+A **autoria legal e a responsabilidade** são de **Diego Melo Rodrigues
+Ferraz**. A bancada de LLMs é parte do método e da colaboração técnica; não é
+autora legal, não assina licença e não responde pelo projeto.
+
+Copyright (C) 2026 Diego Melo Rodrigues Ferraz. Veja `AUTHORS.md` e `NOTICE`.
 
 ## Como citar
 
 Se você quiser reconhecer o processo, cite:
 
-> “Kairós, concebido e dirigido pelo criador em simbiose com uma bancada de
-> LLMs.”
+> “Kairós, concebido e dirigido por Diego Melo Rodrigues Ferraz (nexialista)
+> em simbiose com uma bancada de LLMs.”
 
 Se você quiser citar academicamente, use `CITATION.cff` e descreva o método
 humano-máquina no texto.
