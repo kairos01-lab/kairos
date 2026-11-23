@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kairós — Dashboard</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10151c;
+      --panel: #18212c;
+      --text: #e7edf5;
+      --muted: #9fb0c3;
+      --accent: #7cc4ff;
+      --border: #2a3949;
+      --error: #ff9b9b;
+    }
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main { max-width: 980px; margin: 0 auto; }
+    h1 { margin: 0 0 .25rem; font-size: 1.6rem; }
+    h2 { margin: 0 0 .75rem; font-size: 1.05rem; }
+    p { color: var(--muted); }
+    .panel {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: .6rem;
+    }
+    .row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+    button {
+      padding: .55rem .85rem;
+      border: 1px solid var(--border);
+      border-radius: .45rem;
+      background: #223247;
+      color: var(--text);
+      cursor: pointer;
+    }
+    button:hover { border-color: var(--accent); }
+    textarea {
+      width: 100%;
+      min-height: 5rem;
+      box-sizing: border-box;
+      padding: .6rem;
+      border: 1px solid var(--border);
+      border-radius: .45rem;
+      background: #0d131a;
+      color: var(--text);
+      font: inherit;
+      resize: vertical;
+    }
+    pre {
+      margin: .75rem 0 0;
+      padding: .75rem;
+      max-height: 22rem;
+      overflow: auto;
+      background: #0d131a;
+      border: 1px solid var(--border);
+      border-radius: .45rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: .85rem;
+    }
+    .muted { color: var(--muted); }
+    .error { color: var(--error); }
+    .ok { color: #9be3a8; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Kairós — Dashboard</h1>
+    <p>
+      Interface mínima de diagnóstico. Usa apenas as rotas existentes
+      <code>/api/status</code>, <code>/api/interact</code> e <code>/ws</code>.
+      A identidade é declarada pelo cliente; esta interface não faz autenticação.
+    </p>
+
+    <section class="panel">
+      <h2>Estado do motor</h2>
+      <div class="row">
+        <button type="button" id="refresh-status">Atualizar status</button>
+        <span class="muted" id="status-indicator">aguardando</span>
+      </div>
+      <pre id="status-output">Carregando…</pre>
+    </section>
+
+    <section class="panel">
+      <h2>Interação de leitura</h2>
+      <form id="interact-form">
+        <label for="user-input" class="muted">Mensagem</label>
+        <textarea id="user-input" name="user_input" maxlength="32768"
+                  placeholder="Digite uma mensagem para o fluxo de leitura."></textarea>
+        <div class="row" style="margin-top:.6rem">
+          <button type="submit">Enviar (action=read)</button>
+          <span class="muted" id="interact-indicator">aguardando</span>
+        </div>
+      </form>
+      <pre id="interact-output">Nenhuma interação enviada.</pre>
+    </section>
+
+    <section class="panel">
+      <h2>WebSocket</h2>
+      <div class="row">
+        <span class="muted" id="ws-indicator">desconectado</span>
+      </div>
+      <pre id="ws-output">Aguardando conexão…</pre>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const statusOutput = document.getElementById("status-output");
+      const statusIndicator = document.getElementById("status-indicator");
+      const interactForm = document.getElementById("interact-form");
+      const interactOutput = document.getElementById("interact-output");
+      const interactIndicator = document.getElementById("interact-indicator");
+      const wsIndicator = document.getElementById("ws-indicator");
+      const wsOutput = document.getElementById("ws-output");
+
+      function showError(target, error) {
+        target.textContent = String(error);
+        target.className = "error";
+      }
+
+      async function refreshStatus() {
+        statusIndicator.textContent = "consultando…";
+        statusIndicator.className = "muted";
+        try {
+          const response = await fetch("/api/status", {
+            headers: { "Accept": "application/json" }
+          });
+          const data = await response.json();
+          statusOutput.textContent = JSON.stringify(data, null, 2);
+          statusOutput.className = response.ok ? "ok" : "error";
+          statusIndicator.textContent = response.ok ? "ok" : "HTTP " + response.status;
+          statusIndicator.className = response.ok ? "ok" : "error";
+        } catch (error) {
+          showError(statusOutput, "Falha ao consultar /api/status: " + error);
+          statusIndicator.textContent = "erro";
+          statusIndicator.className = "error";
+        }
+      }
+
+      document.getElementById("refresh-status").addEventListener("click", refreshStatus);
+
+      interactForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        const message = document.getElementById("user-input").value;
+        interactIndicator.textContent = "enviando…";
+        interactIndicator.className = "muted";
+        try {
+          const response = await fetch("/api/interact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user_id: "web_user",
+              threat_type: "web_interaction",
+              user_input: message,
+              action: "read"
+            })
+          });
+          const data = await response.json();
+          interactOutput.textContent = JSON.stringify(data, null, 2);
+          interactOutput.className = response.ok ? "ok" : "error";
+          interactIndicator.textContent = response.ok ? "ok" : "HTTP " + response.status;
+          interactIndicator.className = response.ok ? "ok" : "error";
+        } catch (error) {
+          showError(interactOutput, "Falha ao chamar /api/interact: " + error);
+          interactIndicator.textContent = "erro";
+          interactIndicator.className = "error";
+        }
+      });
+
+      function connectWebSocket() {
+        const scheme = window.location.protocol === "https:" ? "wss" : "ws";
+        const socket = new WebSocket(scheme + "://" + window.location.host + "/ws");
+        socket.addEventListener("open", function () {
+          wsIndicator.textContent = "conectado";
+          wsIndicator.className = "ok";
+        });
+        socket.addEventListener("message", function (event) {
+          wsOutput.textContent = event.data;
+        });
+        socket.addEventListener("close", function () {
+          wsIndicator.textContent = "desconectado";
+          wsIndicator.className = "muted";
+        });
+        socket.addEventListener("error", function () {
+          wsIndicator.textContent = "erro";
+          wsIndicator.className = "error";
+        });
+      }
+
+      refreshStatus();
+      connectWebSocket();
+    }());
+  </script>
+</body>
+</html>

@@ -7,8 +7,21 @@ Equação: S_t = S_0 * e^(-λ*t) + Σ(R_i)
 - t: tempo decorrido
 - R_i: gatilhos de memória (ruminação)
 """
+import math
+
 import numpy as np
 import time
+
+
+def _finite_non_negative(name: str, value):
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(f"{name} deve ser numérico")
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError(f"{name} deve ser finito")
+    if number < 0.0:
+        raise ValueError(f"{name} não pode ser negativo")
+    return number
 
 
 class VirtualLiver:
@@ -23,8 +36,17 @@ class VirtualLiver:
                         o suficiente para afetar conversas, mas esfria lentamente).
             stress_cap: S_0 capacidade máxima de estresse.
         """
-        self.decay_rate = decay_rate
-        self.stress_cap = stress_cap
+        if isinstance(decay_rate, bool) or not isinstance(decay_rate, (int, float)):
+            raise ValueError("decay_rate deve ser numérico")
+        if not math.isfinite(float(decay_rate)) or not 0.0 < float(decay_rate) <= 1.0:
+            raise ValueError("decay_rate deve estar em (0, 1]")
+        if isinstance(stress_cap, bool) or not isinstance(stress_cap, (int, float)):
+            raise ValueError("stress_cap deve ser numérico")
+        if not math.isfinite(float(stress_cap)) or float(stress_cap) <= 0.0:
+            raise ValueError("stress_cap deve ser finito e positivo")
+
+        self.decay_rate = float(decay_rate)
+        self.stress_cap = float(stress_cap)
         self.current_stress = 0.0
         self.last_update = time.time()
         self.memory_triggers = []  # R_i - gatilhos de ruminação
@@ -38,9 +60,12 @@ class VirtualLiver:
           dt grande (servidor de pé há horas) "evaporar" a injeção.
 
         Args:
-            amount: Quantidade de estresse a adicionar (R_i gatilho).
+            amount: Quantidade de estresse a adicionar (R_i gatilho), finita e
+                não negativa. Valores negativos/NaN/infinitos são rejeitados;
+                não são convertidos em zero nem em permissão.
             trigger: Identificador do gatilho de memória.
         """
+        amount = _finite_non_negative("amount", amount)
         self._cool_down()
         self.current_stress = min(self.current_stress + amount, self.stress_cap)
         if trigger:
@@ -63,6 +88,20 @@ class VirtualLiver:
         now = time.time()
         dt = min(now - self.last_update, max_dt)
         self.last_update = now
+
+        # Estado inválido não pode virar 0.0 silenciosamente: isso liberaria o
+        # Hard Block. Em corrupção externa, adotamos o teto conservador.
+        current = self.current_stress
+        if (
+            isinstance(current, bool)
+            or not isinstance(current, (int, float))
+            or not math.isfinite(float(current))
+            or float(current) < 0.0
+            or float(current) > self.stress_cap
+        ):
+            self.current_stress = self.stress_cap
+        else:
+            self.current_stress = float(current)
 
         # Equação: S_t = S_0 * e^(-λ*t) + Σ(R_i)
         # Decaimento exponencial do estresse atual

@@ -13,10 +13,16 @@ Responsabilidades:
 5. Expor metadados de auditoria (provider/projeto/tentativa/failover).
 6. Abortar explicitamente se não houver credencial.
 """
-import os
 import json
 import logging
 from typing import List, Dict, Optional
+
+from .secrets_config import (
+    API_SECRET_FILE_ENV,
+    SecretConfigError,
+    load_api_router_keys,
+    resolve_secret_path,
+)
 
 logger = logging.getLogger("ApiRouter")
 
@@ -45,7 +51,7 @@ class ApiRouter:
         provider: str = "google",
         model: str = DEFAULT_MODEL,
         keys: Optional[List[str]] = None,
-        secret_file: str = "/home/maktub/.secret/segredos.env",
+        secret_file: str = None,
         require_all: bool = False,
         expected_projects: int = 4,
     ):
@@ -53,31 +59,25 @@ class ApiRouter:
         self.model = model
         self.projects: List[Dict[str, object]] = []
         self._current_index = 0
+        self.secret_source = "none"
+        self.secret_path = resolve_secret_path(
+            secret_file,
+            env_var=API_SECRET_FILE_ENV,
+            default_path="~/.secret/segredos.env",
+        )
 
-        loaded = list(keys or [])
-
-        # 1. Variáveis de ambiente (preferencial)
-        if not loaded:
-            for idx in range(1, expected_projects + 1):
-                for prefix in ("GOOGLE_API_KEY", "GEMINI_API_KEY"):
-                    val = os.getenv(f"{prefix}_{idx}")
-                    if val and val.strip():
-                        loaded.append(val.strip())
-                        break
-
-        # 2. Arquivo de segredo fora do repositório
-        if not loaded and secret_file and os.path.exists(secret_file):
-            try:
-                with open(secret_file, "r", encoding="utf-8") as fh:
-                    for line in fh:
-                        line = line.strip()
-                        if not line or line.startswith("#") or "=" not in line:
-                            continue
-                        val = line.split("=", 1)[1].strip().strip('"').strip("'")
-                        if val:
-                            loaded.append(val)
-            except Exception as exc:
-                logger.warning("[ApiRouter] Falha ao ler arquivo de segredo: %s", type(exc).__name__)
+        try:
+            loaded, self.secret_source = load_api_router_keys(
+                explicit_keys=keys,
+                secret_file=self.secret_path,
+                expected_projects=expected_projects,
+            )
+        except SecretConfigError as error:
+            # A mensagem não contém o valor do segredo.
+            raise RuntimeError(
+                "[ApiRouter] arquivo/configuração de segredo rejeitado: "
+                f"{error.code}: {error.message}"
+            ) from error
 
         # Deduplicar preservando ordem
         seen, unique = set(), []
@@ -98,7 +98,8 @@ class ApiRouter:
         if not self.projects:
             raise RuntimeError(
                 "[ApiRouter] ERRO CRÍTICO: nenhuma credencial configurada. "
-                "Defina GOOGLE_API_KEY_1..N ou um arquivo de segredo. Abortando."
+                "Defina GOOGLE_API_KEY/GEMINI_API_KEY (ou _1..N) ou "
+                "KAIROS_API_SECRET_FILE. Abortando."
             )
 
         # Exigir o pool completo quando o experimento depende dele

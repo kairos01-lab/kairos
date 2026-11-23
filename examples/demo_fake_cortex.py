@@ -33,8 +33,43 @@ class FakeGuard:
         }
 
     def kernel_check(self, **kwargs):
-        return {"allowed": True, "kernel_panic": False, "ring": 3,
-                "reasoning": "demo"}
+        return {
+            "kernel_status": "KERNEL_ALLOW",
+            "allowed": True,
+            "kernel_panic": False,
+            "ring": 3,
+            "action": kwargs.get("action", "read"),
+            "operation_class": "observation_read",
+            "target_category": "unclassified",
+            "intent_category": "operations",
+            "from_majority_vote": kwargs.get("from_majority_vote", False),
+            "requires_review": False,
+            "matched_rule": "demo",
+            "reasoning": "demo",
+        }
+
+    def authorize_action(self, **kwargs):
+        hard = self.hard_block(
+            action=kwargs.get("action", "read"),
+            stress_level=kwargs.get("stress_level"),
+            is_reincident=kwargs.get("is_reincident", False),
+            user_id=kwargs.get("user_id", "demo"),
+        )
+        kernel = self.kernel_check(
+            action=kwargs.get("action", "read"),
+            target=kwargs.get("target") or kwargs.get("user_id", "demo"),
+            intent=kwargs.get("intent") or "leitura",
+            from_majority_vote=kwargs.get("from_majority_vote", False),
+        )
+        return {
+            "allowed": True,
+            "blocked_by": None,
+            "guard_status": "GUARD_OK",
+            "kernel_status": "KERNEL_ALLOW",
+            "kernel": kernel,
+            "hard_block": hard,
+            "reasoning": "demo: autorização simulada",
+        }
 
     def break_glass(self, **kwargs):
         return {"autorizado": False, "motivo_recusa": "demo"}
@@ -47,7 +82,11 @@ class FakeCortex(CortexPreFrontal):
     """Córtex de demonstração: devolve uma resposta fixa, sem LLM."""
 
     def __init__(self):
-        super().__init__(use_local=False, api_endpoint="local://demo")
+        super().__init__(
+            use_local=False,
+            api_endpoint="local://demo",
+            read_key_file=False,
+        )
         self.last_execution_meta = {
             "provider": "demo",
             "model": "fake-cortex",
