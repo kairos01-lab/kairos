@@ -110,6 +110,23 @@ class MemoryStorageError(MemoryContractError):
     """Falha de gravação/leitura no backend."""
 
 
+class MemoryMetricMismatchError(MemoryStorageError):
+    """A coleção existente usa uma métrica incompatível.
+
+    A inicialização falha sem apagar a coleção. A recriação só pode ocorrer
+    por uma chamada explícita a ``TriangulationMemory.reset()``.
+    """
+
+    def __init__(self, collection_name: str, requested_metric: str, actual_metric: str):
+        self.collection_name = collection_name
+        self.requested_metric = requested_metric
+        self.actual_metric = actual_metric
+        super().__init__(
+            f"coleção '{collection_name}' usa métrica '{actual_metric}', "
+            f"mas foi solicitada '{requested_metric}'; nenhum dado foi apagado"
+        )
+
+
 class MemoryDuplicateIdError(MemoryStorageError):
     """Tentativa de gravar um ID já existente."""
 

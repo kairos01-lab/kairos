@@ -259,8 +259,7 @@ class MotorEmocional:
         self.context_memory = TriangulationMemory(
             embedding_dim=3,
             persist_path=context_mem_path,
-            metric="cosine",                     # métrica explícita da variável independente
-            recreate_on_metric_mismatch=True,    # corrige coleção legada com squared_l2
+            metric="cosine",  # métrica explícita da variável independente
         )
         self.memory_bridge = MemoryContextBridge(self.context_memory)
 

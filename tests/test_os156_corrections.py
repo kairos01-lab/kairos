@@ -16,6 +16,7 @@ if MOTOR not in sys.path:
 
 from core.emotional_matrix import EmotionalMatrix  # noqa: E402
 import core.web_server as web_server  # noqa: E402
+import core.motor_sistema as motor_sistema  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 
@@ -167,6 +168,16 @@ class DashboardRouteTests(unittest.TestCase):
         self.assertTrue(
             (web_server._TEMPLATES_DIR / "dashboard.html").is_file()
         )
+
+    def test_dashboard_input_limit_matches_server(self):
+        template = (web_server._TEMPLATES_DIR / "dashboard.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertEqual(motor_sistema._MAX_USER_INPUT_CHARS, 8192)
+        self.assertIn('maxlength="8192"', template)
+        self.assertIn("0 / 8192 caracteres", template)
+        self.assertIn("Limite de", template)
+        self.assertNotIn('maxlength="32768"', template)
 
     def test_get_root_returns_dashboard_html(self):
         response = self.client.get("/")

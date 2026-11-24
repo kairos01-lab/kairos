@@ -8,6 +8,8 @@
   (SHA-256 do conteúdo canônico + SHA-256 do embedding).
 - Registros legados (schema v1) são lidos como `legacy_unverified`, depois de
   validação estrutural, e marcados como tal.
+- Métrica incompatível falha com `MemoryMetricMismatchError` e preserva a
+  coleção; a recriação só ocorre por `reset()` explícito.
 - Erros de backend não viram `[]`: `retrieve()` levanta exceções específicas;
   `retrieve_with_status()` devolve um estado explícito.
 """
@@ -41,6 +43,7 @@ from .memory_contract import (
     MemoryDuplicateIdError,
     MemoryIntegrityError,
     MemoryInvalidRecord,
+    MemoryMetricMismatchError,
     MemoryStorageError,
     MemoryTimeout,
     MemoryUnavailable,
@@ -121,6 +124,13 @@ class TriangulationMemory:
         self.persistent = persist_path is not None
         self._access_lock = threading.RLock()
 
+        if recreate_on_metric_mismatch:
+            logger.warning(
+                "[TriangulationMemory] recreate_on_metric_mismatch foi desativado; "
+                "a coleção existente nunca é apagada automaticamente. "
+                "Use reset() apenas por procedimento explícito."
+            )
+
         try:
             if persist_path:
                 self.client = chromadb.PersistentClient(path=persist_path)
@@ -147,20 +157,11 @@ class TriangulationMemory:
 
             effective = self._effective_metric()
             if metric and effective != metric:
-                if not recreate_on_metric_mismatch:
-                    raise MemoryStorageError(
-                        f"coleção '{collection_name}' usa métrica '{effective}', "
-                        f"mas foi solicitada '{metric}'"
-                    )
-                try:
-                    self.client.delete_collection(name=collection_name)
-                    self.collection = self.client.create_collection(
-                        name=collection_name, metadata=metadata
-                    )
-                except Exception as error:
-                    raise MemoryStorageError(
-                        "falha ao recriar coleção com métrica solicitada"
-                    ) from error
+                # Nunca apagar dados automaticamente. A coleção existente
+                # permanece intacta; a recriação exige reset() explícito.
+                raise MemoryMetricMismatchError(
+                    collection_name, metric, effective
+                )
         except MemoryContractError:
             raise
         except Exception as error:
@@ -724,8 +725,20 @@ class TriangulationMemory:
             }
 
     @_memory_access
-    def reset(self):
-        """Remove e recria a coleção. Falhas reais são levantadas."""
+    def reset(self, *, metric: str = None):
+        """Recriar explicitamente a coleção, apagando os registros existentes.
+
+        Este é o único caminho de recriação. Ele nunca é chamado durante a
+        inicialização; uma métrica incompatível falha com
+        ``MemoryMetricMismatchError`` sem apagar dados.
+
+        ``metric`` permite recriar a coleção já com a métrica desejada. A
+        operação é destrutiva e exige backup prévio em coleções persistentes.
+        """
+        if metric is not None and (not isinstance(metric, str) or not metric.strip()):
+            raise MemoryInvalidRecord("metric deve ser string não vazia")
+
+        target_metric = self.metric if metric is None else metric
         try:
             self.client.delete_collection(name=self.collection_name)
         except chroma_errors.NotFoundError:
@@ -734,12 +747,13 @@ class TriangulationMemory:
             raise MemoryStorageError("falha ao remover coleção") from error
 
         metadata = {"embedding_dim": self.embedding_dim}
-        if self.metric:
-            metadata["hnsw:space"] = self.metric
+        if target_metric:
+            metadata["hnsw:space"] = target_metric
         try:
             self.collection = self.client.create_collection(
                 name=self.collection_name, metadata=metadata
             )
+            self.metric = target_metric
         except Exception as error:
             raise MemoryStorageError("falha ao recriar coleção") from error
 

@@ -78,7 +78,12 @@ A tabela `interaction_events` contém:
 - ação: `threat_type`, `action`, hashes de alvo/intenção e tamanhos;
 - decisão: `authorization_status`, `execution_status`, `cortex_status`,
   `system_state`;
-- payload allowlisted em `payload_json`;
+- payload JSON validado em `payload_json`: objeto com chaves string,
+  tipos JSON permitidos e limites da seção 6; chaves reservadas no
+  nível superior são rejeitadas. O store não aplica allowlist de chaves
+  de negócio; a integração atual do motor envia apenas `policy`,
+  `authorization`, `execution`, `cortex`, `memory`, `state`,
+  `processing_time_ms` e `user_input_chars`;
 - integridade: `event_hash_sha256`, `record_hash_sha256`,
   `prev_record_hash_sha256`;
 - campos reservados para HMAC futuro (`record_hmac`, `hmac_key_version`).
@@ -187,7 +192,8 @@ Estados de gravação: `RECORDED`, `DUPLICATE`, `IDEMPOTENCY_CONFLICT`,
 e `CORRUPT`.
 
 - `RECORDED` só após commit;
-- falha em operação best-effort é exposta como `AUDIT_INCOMPLETE`;
+- falha em operação best-effort é exposta como
+  `audit_completeness="INCOMPLETE"` no resultado do motor;
 - nenhum fallback em RAM é apresentado como persistência durável;
 - operações futuras que exijam auditoria obrigatória devem bloquear sem
   `INTENT` durável;
